@@ -16,12 +16,14 @@ public class CocktailPriceService {
 
     private final Map<String, Double> standardPrices;
     private final Map<String, Double> happyHourPrices;
+    private final TimeProvider timeProvider;
 
 
     /**
      * Konstruktor. Erzeugt eine neue {@link CocktailPriceService}-Instanz.
      */
-    public CocktailPriceService() {
+    public CocktailPriceService(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
         this.standardPrices = standardPrices();
         this.happyHourPrices = happyHourPrices();
     }
@@ -32,7 +34,7 @@ public class CocktailPriceService {
      * @return eine {@link Map} mit den aktuell gültigen Cocktail-Preisen.
      */
     public Map<String, Double> getPrices() {
-        LocalTime currentTime = LocalTime.now();
+        LocalTime currentTime = timeProvider.getCurrentTime();
         if (currentTime.isBefore(HAPPY_HOUR_START)) {
             return standardPrices;
         } else {

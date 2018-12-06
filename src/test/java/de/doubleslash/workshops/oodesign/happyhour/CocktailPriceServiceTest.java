@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.time.LocalTime;
 import java.util.Map;
 
 import org.junit.Test;
@@ -71,7 +72,7 @@ public class CocktailPriceServiceTest {
     private CocktailPriceService priceServiceAtTime(int hour, int minute) {
         // ??? CocktailPriceService benutzt LocalTime.now() um die aktuelle Zeit festzustellen.
         // ??? Wie können wir die Abhängigkeit "Zeit" kontrollieren und dem CocktailPriceService eine bestimmte Zeit vorgaukeln?
-        return new CocktailPriceService();
+        return new CocktailPriceService(new TestTimeProvider(LocalTime.of(hour, minute)));
     }
 
 }

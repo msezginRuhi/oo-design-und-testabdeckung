@@ -57,7 +57,7 @@ public class ATMTest {
         testee.withdrawMoney(1234, 100.0);
 
         // assert
-        // prüfen dass der die dispenseCash-Methode vom MoneyDispenser aufgerufen wurde
+        // prüfen dass der die dispenseCash-Methode vom MoneyDispenser mit korrektem Betrag aufgerufen wurde
         Mockito.verify(moneyDispenserMock).dispenseCash(100.0);
     }
 
@@ -74,6 +74,9 @@ public class ATMTest {
 
         // assert
         // prüfen dass der AccountingService NICHT aufgerufen wurde
+        // withdrawAmount(...) soll überhaupt nicht aufgerufen werden, egal mit welchen Parametern. Daher anyDouble() und anyInt().
+        // würden beim Verify konkrete Werte angegeben werden, würde nur geprüft werden,
+        // dass die Methode nicht mit diesen Werten aufgerufen wurde
         Mockito.verify(accountingServiceMock, never()).withdrawAmount(anyDouble(), anyInt());
     }
 
@@ -87,7 +90,7 @@ public class ATMTest {
         testee.withdrawMoney(1234, 100.0);
 
         // assert
-        // prüfen dass der AccountingService NICHT aufgerufen wurde
+        // prüfen dass der AccountingService NICHT aufgerufen wurde (egal mit welchen Parametern)
         Mockito.verify(accountingServiceMock, never()).withdrawAmount(anyDouble(), anyInt());
     }
 
@@ -101,7 +104,7 @@ public class ATMTest {
         testee.withdrawMoney(1234, 100.0);
 
         // assert
-        // prüfen dass der MoneyDispenser NICHT aufgerufen wurde
+        // prüfen dass der MoneyDispenser NICHT aufgerufen wurde (egal mit welchem Parameter)
         Mockito.verify(moneyDispenserMock, never()).dispenseCash(anyDouble());
     }
 
@@ -118,7 +121,7 @@ public class ATMTest {
         testee.withdrawMoney(1234, 100.0);
 
         // assert
-        //prüfen dass der MoneyDispenser NICHT aufgerufen wurde
+        //prüfen dass der MoneyDispenser NICHT aufgerufen wurde (egal mit welchem Parameter)
         Mockito.verify(moneyDispenserMock, never()).dispenseCash(anyDouble());
     }
 
